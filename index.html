@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechNova 2026 - The Future is Now</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            400: '#818cf8', // Added missing shade for gradient
+                            500: '#6366f1', // Indigo
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        },
+                        accent: {
+                            400: '#f472b6',
+                            500: '#ec4899', // Pink
+                            600: '#db2777',
+                        },
+                        dark: {
+                            800: '#1e293b',
+                            900: '#0f172a', // Slate 900
+                            950: '#020617',
+                        }
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'blob': 'blob 7s infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #6366f1, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-800 antialiased overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-effect border-b border-gray-200 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer group" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 bg-gradient-to-br from-brand-600 to-accent-500 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg transform group-hover:rotate-12 transition-transform duration-300">
+                        TN
+                    </div>
+                    <span class="font-display font-bold text-2xl tracking-tight text-slate-900 group-hover:text-brand-600 transition-colors">TechNova<span class="text-accent-500">.</span></span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">About</a>
+                    <a href="#schedule" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">Schedule</a>
+                    <a href="#speakers" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">Speakers</a>
+                    <a href="#pricing" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">Passes</a>
+                    <a href="#gallery" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">Gallery</a>
+                    <a href="#register" class="px-6 py-2.5 bg-brand-600 text-white text-sm font-medium rounded-full hover:bg-brand-700 transition-all shadow-lg hover:shadow-brand-500/30 transform hover:-translate-y-0.5">
+                        Register Now
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-brand-600 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200 absolute w-full left-0 top-20 shadow-xl z-40">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">About</a>
+                <a href="#schedule" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Schedule</a>
+                <a href="#speakers" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Speakers</a>
+                <a href="#pricing" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Tickets</a>
+                <a href="#register" class="block mt-4 text-center w-full px-4 py-3 bg-brand-600 text-white font-bold rounded-lg hover:bg-brand-700 shadow-md">Get Tickets</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-dark-900">
+        <!-- Animated Background Shapes -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+            <div class="absolute top-0 right-1/4 w-96 h-96 bg-accent-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" style="animation-delay: 2s;"></div>
+            <div class="absolute -bottom-32 left-1/3 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" style="animation-delay: 4s;"></div>
+            <!-- Grid Pattern -->
+            <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+        </div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center z-10">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm text-brand-100 text-sm font-medium mb-8 hover:bg-white/20 transition-colors cursor-default animate-fade-in-up">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-accent-500"></span>
+                </span>
+                March 15-17, 2026 &bull; City Institute Auditorium
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-display font-extrabold tracking-tight text-white mb-6 leading-tight animate-fade-in-up" style="animation-delay: 0.1s;">
+                Innovate. <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-accent-500">Create.</span> Elevate.
+            </h1>
+            
+            <p class="mt-4 max-w-2xl text-xl text-slate-300 mb-10 leading-relaxed animate-fade-in-up" style="animation-delay: 0.2s;">
+                Join 5000+ students, developers, and creators for the biggest college tech festival of the year. Hackathons, workshops, and e-sports await.
+            </p>
+
+            <!-- Countdown Timer -->
+            <div class="grid grid-cols-4 gap-4 md:gap-8 mb-12 animate-fade-in-up" style="animation-delay: 0.3s;">
+                <div class="flex flex-col items-center p-4 bg-white/5 rounded-xl border border-white/10 backdrop-blur-sm">
+                    <span id="days" class="text-3xl md:text-5xl font-bold text-white font-display">00</span>
+                    <span class="text-xs md:text-sm text-slate-400 uppercase tracking-wider mt-1">Days</span>
+                </div>
+                <div class="flex flex-col items-center p-4 bg-white/5 rounded-xl border border-white/10 backdrop-blur-sm">
+                    <span id="hours" class="text-3xl md:text-5xl font-bold text-white font-display">00</span>
+                    <span class="text-xs md:text-sm text-slate-400 uppercase tracking-wider mt-1">Hours</span>
+                </div>
+                <div class="flex flex-col items-center p-4 bg-white/5 rounded-xl border border-white/10 backdrop-blur-sm">
+                    <span id="minutes" class="text-3xl md:text-5xl font-bold text-white font-display">00</span>
+                    <span class="text-xs md:text-sm text-slate-400 uppercase tracking-wider mt-1">Mins</span>
+                </div>
+                <div class="flex flex-col items-center p-4 bg-white/5 rounded-xl border border-white/10 backdrop-blur-sm">
+                    <span id="seconds" class="text-3xl md:text-5xl font-bold text-white font-display">00</span>
+                    <span class="text-xs md:text-sm text-slate-400 uppercase tracking-wider mt-1">Secs</span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto animate-fade-in-up" style="animation-delay: 0.4s;">
+                <a href="#register" class="px-8 py-4 rounded-full bg-gradient-to-r from-brand-600 to-accent-600 text-white font-bold hover:from-brand-500 hover:to-accent-500 transition-all shadow-[0_0_25px_rgba(99,102,241,0.5)] hover:scale-105 active:scale-95">
+                    Grab Your Pass <i class="fas fa-ticket-alt ml-2"></i>
+                </a>
+                <a href="#schedule" class="px-8 py-4 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm text-white font-semibold hover:bg-white/20 transition-all">
+                    View Schedule
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- About / Features Section -->
+    <section id="about" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-600 font-bold tracking-wider uppercase text-sm mb-2 block">The Experience</span>
+                <h2 class="text-3xl md:text-4xl font-display font-bold text-slate-900 mb-4">Why Attend TechNova?</h2>
+                <div class="h-1.5 w-20 bg-gradient-to-r from-brand-500 to-accent-500 mx-auto rounded-full mb-6"></div>
+                <p class="text-lg text-slate-600">Experience a fusion of technology, culture, and innovation. Here is what you can expect at this year's edition.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-white rounded-2xl p-8 shadow-xl shadow-brand-100/50 border border-gray-100 hover:-translate-y-2 transition-transform duration-300 group cursor-pointer">
+                    <div class="w-16 h-16 bg-brand-50 rounded-2xl flex items-center justify-center text-brand-600 text-3xl mb-6 group-hover:bg-brand-600 group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-display text-slate-900 mb-3 group-hover:text-brand-600 transition-colors">24h Hackathon</h3>
+                    <p class="text-slate-600 leading-relaxed">Test your coding skills in our flagship hackathon. Build solutions for real-world problems and win prizes worth $10k.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white rounded-2xl p-8 shadow-xl shadow-accent-100/50 border border-gray-100 hover:-translate-y-2 transition-transform duration-300 group cursor-pointer">
+                    <div class="w-16 h-16 bg-accent-50 rounded-2xl flex items-center justify-center text-accent-600 text-3xl mb-6 group-hover:bg-accent-600 group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-display text-slate-900 mb-3 group-hover:text-accent-600 transition-colors">Gaming Arena</h3>
+                    <p class="text-slate-600 leading-relaxed">Compete in Valorant, FIFA, and CS:GO tournaments. Experience high-fidelity VR zones and retro gaming stations.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white rounded-2xl p-8 shadow-xl shadow-purple-100/50 border border-gray-100 hover:-translate-y-2 transition-transform duration-300 group cursor-pointer">
+                    <div class="w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center text-purple-600 text-3xl mb-6 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-microphone-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold font-display text-slate-900 mb-3 group-hover:text-purple-600 transition-colors">Tech Talks</h3>
+                    <p class="text-slate-600 leading-relaxed">Listen to industry experts from Google, Amazon, and top startups share insights on AI, Blockchain, and Future Tech.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sponsors Section -->
+    <section class="py-12 bg-gray-50 border-y border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-sm font-semibold text-slate-500 uppercase tracking-widest mb-8">Supported By Industry Leaders</p>
+            <div class="flex flex-wrap justify-center gap-8 md:gap-16 opacity-75 grayscale hover:grayscale-0 transition-all duration-500">
+                <!-- Simple Text Logos for Demo -->
+                <div class="flex items-center gap-2 text-2xl font-bold text-slate-700"><i class="fab fa-google text-brand-600"></i> Google</div>
+                <div class="flex items-center gap-2 text-2xl font-bold text-slate-700"><i class="fab fa-microsoft text-blue-600"></i> Microsoft</div>
+                <div class="flex items-center gap-2 text-2xl font-bold text-slate-700"><i class="fab fa-aws text-orange-500"></i> AWS</div>
+                <div class="flex items-center gap-2 text-2xl font-bold text-slate-700"><i class="fab fa-spotify text-green-500"></i> Spotify</div>
+                <div class="flex items-center gap-2 text-2xl font-bold text-slate-700"><i class="fab fa-github text-gray-900"></i> GitHub</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule" class="py-24 bg-white relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-display font-bold text-slate-900 mb-4">Event Schedule</h2>
+                <div class="inline-flex bg-gray-100 p-1.5 rounded-xl mt-4">
+                    <button class="px-8 py-2.5 rounded-lg bg-white text-brand-600 shadow-sm text-sm font-bold transition-all">Day 1</button>
+                    <button class="px-8 py-2.5 rounded-lg text-slate-500 text-sm font-semibold hover:bg-white/50 hover:text-slate-700 transition-all">Day 2</button>
+                    <button class="px-8 py-2.5 rounded-lg text-slate-500 text-sm font-semibold hover:bg-white/50 hover:text-slate-700 transition-all">Day 3</button>
+                </div>
+            </div>
+
+            <!-- Organized Timeline -->
+            <div class="max-w-4xl mx-auto">
+                <div class="relative border-l-2 border-gray-200 ml-4 md:ml-6 space-y-12">
+                    
+                    <!-- Item 1 -->
+                    <div class="relative pl-8 md:pl-12 group">
+                        <!-- Dot -->
+                        <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-brand-500 border-4 border-white shadow-sm"></div>
+                        
+                        <!-- Content -->
+                        <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-8">
+                            <div class="md:w-32 shrink-0">
+                                <span class="font-display font-bold text-xl text-slate-900">09:00 AM</span>
+                                <span class="block text-sm text-slate-500">Duration: 2h</span>
+                            </div>
+                            <div class="grow bg-gray-50 rounded-2xl p-6 hover:bg-white hover:shadow-lg border border-gray-100 transition-all">
+                                <div class="flex items-start justify-between mb-2">
+                                    <h3 class="text-xl font-bold text-slate-900">Inauguration Ceremony</h3>
+                                    <span class="text-xs font-bold px-2.5 py-1 bg-green-100 text-green-700 rounded-full">Main Stage</span>
+                                </div>
+                                <p class="text-slate-600 text-sm mb-3">Opening speech by the Dean, lighting of the lamp, and keynote address by Chief Guest Dr. Alistair Wright.</p>
+                                <div class="flex items-center gap-4 text-sm text-slate-500">
+                                    <span><i class="fas fa-map-marker-alt text-brand-500 mr-2"></i>Grand Auditorium</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="relative pl-8 md:pl-12 group">
+                        <!-- Dot -->
+                        <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm group-hover:bg-brand-500 transition-colors"></div>
+                        
+                        <!-- Content -->
+                        <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-8">
+                            <div class="md:w-32 shrink-0">
+                                <span class="font-display font-bold text-xl text-slate-900">11:00 AM</span>
+                                <span class="block text-sm text-slate-500">Duration: 24h</span>
+                            </div>
+                            <div class="grow bg-gray-50 rounded-2xl p-6 hover:bg-white hover:shadow-lg border border-gray-100 transition-all">
+                                <div class="flex items-start justify-between mb-2">
+                                    <h3 class="text-xl font-bold text-slate-900">Hackathon Kickoff</h3>
+                                    <span class="text-xs font-bold px-2.5 py-1 bg-blue-100 text-blue-700 rounded-full">Competition</span>
+                                </div>
+                                <p class="text-slate-600 text-sm mb-3">Problem statements released. Teams begin brainstorming and coding. Mentors assigned to each zone.</p>
+                                <div class="flex items-center gap-4 text-sm text-slate-500">
+                                    <span><i class="fas fa-map-marker-alt text-brand-500 mr-2"></i>Lab Complex A</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="relative pl-8 md:pl-12 group">
+                        <!-- Dot -->
+                        <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm group-hover:bg-brand-500 transition-colors"></div>
+                        
+                        <!-- Content -->
+                        <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-8">
+                            <div class="md:w-32 shrink-0">
+                                <span class="font-display font-bold text-xl text-slate-900">02:00 PM</span>
+                                <span class="block text-sm text-slate-500">Duration: 3h</span>
+                            </div>
+                            <div class="grow bg-gray-50 rounded-2xl p-6 hover:bg-white hover:shadow-lg border border-gray-100 transition-all">
+                                <div class="flex items-start justify-between mb-2">
+                                    <h3 class="text-xl font-bold text-slate-900">GenAI Workshop</h3>
+                                    <span class="text-xs font-bold px-2.5 py-1 bg-purple-100 text-purple-700 rounded-full">Workshop</span>
+                                </div>
+                                <p class="text-slate-600 text-sm mb-3">Hands-on session on Large Language Models by Anita Malik. Laptop with Python installed is mandatory.</p>
+                                <div class="flex items-center gap-4 text-sm text-slate-500">
+                                    <span><i class="fas fa-map-marker-alt text-brand-500 mr-2"></i>Seminar Hall</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- Item 4 -->
+                    <div class="relative pl-8 md:pl-12 group">
+                        <!-- Dot -->
+                        <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-slate-300 border-4 border-white shadow-sm group-hover:bg-brand-500 transition-colors"></div>
+                        
+                        <!-- Content -->
+                        <div class="flex flex-col md:flex-row md:items-start gap-4 md:gap-8">
+                            <div class="md:w-32 shrink-0">
+                                <span class="font-display font-bold text-xl text-slate-900">06:00 PM</span>
+                                <span class="block text-sm text-slate-500">Duration: 4h</span>
+                            </div>
+                            <div class="grow bg-gray-50 rounded-2xl p-6 hover:bg-white hover:shadow-lg border border-gray-100 transition-all">
+                                <div class="flex items-start justify-between mb-2">
+                                    <h3 class="text-xl font-bold text-slate-900">Cultural Night</h3>
+                                    <span class="text-xs font-bold px-2.5 py-1 bg-pink-100 text-pink-700 rounded-full">Entertainment</span>
+                                </div>
+                                <p class="text-slate-600 text-sm mb-3">Battle of Bands followed by DJ Night featuring DJ Atom. Food stalls open at 7 PM.</p>
+                                <div class="flex items-center gap-4 text-sm text-slate-500">
+                                    <span><i class="fas fa-map-marker-alt text-brand-500 mr-2"></i>Open Grounds</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Speakers Section -->
+    <section id="speakers" class="py-24 bg-dark-900 relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-accent-500 blur-[100px] opacity-10"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-brand-500 blur-[100px] opacity-10"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <h2 class="text-3xl md:text-4xl font-display font-bold text-white text-center mb-16">Featured Speakers</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Speaker Card 1 -->
+                <div class="group relative">
+                    <div class="absolute inset-0 bg-gradient-to-br from-brand-600 to-accent-600 rounded-2xl rotate-3 opacity-0 group-hover:opacity-100 group-hover:rotate-6 transition-all duration-300"></div>
+                    <div class="relative bg-dark-800 p-6 rounded-2xl border border-gray-800 h-full flex flex-col items-center text-center">
+                        <div class="w-32 h-32 rounded-full overflow-hidden mb-4 border-2 border-brand-500 p-1">
+                            <img src="https://placehold.co/400x400/1e293b/white?text=Sarah" alt="Speaker" class="w-full h-full rounded-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold text-white font-display">Sarah Jenkins</h3>
+                        <p class="text-brand-400 text-sm font-medium mb-4">Senior Engineer, Google</p>
+                        <p class="text-slate-400 text-sm mb-6">Expert in Cloud Architecture and Scalable Systems.</p>
+                        <div class="mt-auto flex gap-3">
+                            <a href="#" class="text-slate-400 hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-slate-400 hover:text-white transition-colors"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 2 -->
+                <div class="group relative">
+                    <div class="absolute inset-0 bg-gradient-to-br from-brand-600 to-accent-600 rounded-2xl rotate-3 opacity-0 group-hover:opacity-100 group-hover:rotate-6 transition-all duration-300"></div>
+                    <div class="relative bg-dark-800 p-6 rounded-2xl border border-gray-800 h-full flex flex-col items-center text-center">
+                        <div class="w-32 h-32 rounded-full overflow-hidden mb-4 border-2 border-brand-500 p-1">
+                            <img src="https://placehold.co/400x400/334155/white?text=David" alt="Speaker" class="w-full h-full rounded-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold text-white font-display">David Ross</h3>
+                        <p class="text-brand-400 text-sm font-medium mb-4">Founder, TechSpace</p>
+                        <p class="text-slate-400 text-sm mb-6">Serial entrepreneur helping students build startups.</p>
+                        <div class="mt-auto flex gap-3">
+                            <a href="#" class="text-slate-400 hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-slate-400 hover:text-white transition-colors"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 3 -->
+                <div class="group relative">
+                    <div class="absolute inset-0 bg-gradient-to-br from-brand-600 to-accent-600 rounded-2xl rotate-3 opacity-0 group-hover:opacity-100 group-hover:rotate-6 transition-all duration-300"></div>
+                    <div class="relative bg-dark-800 p-6 rounded-2xl border border-gray-800 h-full flex flex-col items-center text-center">
+                        <div class="w-32 h-32 rounded-full overflow-hidden mb-4 border-2 border-brand-500 p-1">
+                            <img src="https://placehold.co/400x400/475569/white?text=Anita" alt="Speaker" class="w-full h-full rounded-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold text-white font-display">Anita Malik</h3>
+                        <p class="text-brand-400 text-sm font-medium mb-4">AI Researcher</p>
+                        <p class="text-slate-400 text-sm mb-6">Leading research in Generative Adversarial Networks.</p>
+                        <div class="mt-auto flex gap-3">
+                            <a href="#" class="text-slate-400 hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-slate-400 hover:text-white transition-colors"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Speaker Card 4 -->
+                <div class="group relative">
+                    <div class="absolute inset-0 bg-gradient-to-br from-brand-600 to-accent-600 rounded-2xl rotate-3 opacity-0 group-hover:opacity-100 group-hover:rotate-6 transition-all duration-300"></div>
+                    <div class="relative bg-dark-800 p-6 rounded-2xl border border-gray-800 h-full flex flex-col items-center text-center">
+                        <div class="w-32 h-32 rounded-full overflow-hidden mb-4 border-2 border-brand-500 p-1">
+                            <img src="https://placehold.co/400x400/64748b/white?text=James" alt="Speaker" class="w-full h-full rounded-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold text-white font-display">James Lee</h3>
+                        <p class="text-brand-400 text-sm font-medium mb-4">Product Designer</p>
+                        <p class="text-slate-400 text-sm mb-6">Redefining UI/UX patterns for AR/VR applications.</p>
+                        <div class="mt-auto flex gap-3">
+                            <a href="#" class="text-slate-400 hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-slate-400 hover:text-white transition-colors"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-display font-bold text-slate-900 mb-4">Choose Your Pass</h2>
+                <p class="text-slate-600">Whether you're here to hack, learn, or just have fun.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Basic Pass -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 flex flex-col hover:-translate-y-2 transition-transform">
+                    <div class="mb-4">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Visitor</span>
+                        <h3 class="text-3xl font-bold text-slate-900 mt-2">Free</h3>
+                        <p class="text-slate-500 text-sm mt-1">Campus Entry Only</p>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-1">
+                        <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-green-500 mr-3"></i> Event Expo Access</li>
+                        <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-green-500 mr-3"></i> Cultural Night (Standing)</li>
+                        <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-green-500 mr-3"></i> Food Court Access</li>
+                        <li class="flex items-center text-sm text-gray-400"><i class="fas fa-times mr-3"></i> No Workshop Access</li>
+                        <li class="flex items-center text-sm text-gray-400"><i class="fas fa-times mr-3"></i> No Hackathon Entry</li>
+                    </ul>
+                    <a href="#register" class="w-full block text-center py-3 px-4 rounded-xl border-2 border-slate-200 text-slate-700 font-bold hover:border-brand-600 hover:text-brand-600 transition-colors">Register Free</a>
+                </div>
+
+                <!-- Standard Pass -->
+                <div class="bg-white rounded-2xl p-8 shadow-2xl border-2 border-brand-500 flex flex-col relative transform md:-translate-y-4">
+                    <div class="absolute top-0 right-0 bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-lg">POPULAR</div>
+                    <div class="mb-4">
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-600">Participant</span>
+                        <h3 class="text-3xl font-bold text-slate-900 mt-2">$29</h3>
+                        <p class="text-slate-500 text-sm mt-1">Full Event Access</p>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-1">
+                        <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-brand-500 mr-3"></i> Everything in Visitor</li>
+                        <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-brand-500 mr-3"></i> 2 Workshops Included</li>
+                        <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-brand-500 mr-3"></i> Hackathon Entry</li>
+                        <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-brand-500 mr-3"></i> Official T-Shirt & Swag</li>
+                        <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-brand-500 mr-3"></i> Certificate of Participation</li>
+                    </ul>
+                    <a href="#register" class="w-full block text-center py-3 px-4 rounded-xl bg-gradient-to-r from-brand-600 to-accent-600 text-white font-bold hover:shadow-lg transition-shadow">Buy Ticket</a>
+                </div>
+
+                <!-- VIP Pass -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 flex flex-col hover:-translate-y-2 transition-transform">
+                    <div class="mb-4">
+                        <span class="text-xs font-bold uppercase tracking-wider text-purple-600">VIP Access</span>
+                        <h3 class="text-3xl font-bold text-slate-900 mt-2">$59</h3>
+                        <p class="text-slate-500 text-sm mt-1">All Inclusive</p>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-1">
+                        <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-purple-500 mr-3"></i> All Workshops Access</li>
+                        <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-purple-500 mr-3"></i> Front Row for Cultural Night</li>
+                        <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-purple-500 mr-3"></i> Networking Dinner</li>
+                        <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-purple-500 mr-3"></i> Accommodation Included</li>
+                        <li class="flex items-center text-sm text-slate-700"><i class="fas fa-check text-purple-500 mr-3"></i> Premium Swag Kit</li>
+                    </ul>
+                    <a href="#register" class="w-full block text-center py-3 px-4 rounded-xl border-2 border-purple-200 text-purple-700 font-bold hover:bg-purple-50 transition-colors">Get VIP</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section (Masonry) -->
+    <section id="gallery" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-display font-bold text-slate-900 text-center mb-16">Past Highlights</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 h-[600px]">
+                <div class="col-span-2 row-span-2 relative group overflow-hidden rounded-2xl">
+                    <img src="https://placehold.co/800x800/6366f1/ffffff?text=Hackathon+Winner" alt="Gallery" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                        <span class="text-white font-bold">Hackathon Winners 2025</span>
+                    </div>
+                </div>
+                <div class="relative group overflow-hidden rounded-2xl">
+                    <img src="https://placehold.co/400x400/ec4899/ffffff?text=Robot+Wars" alt="Gallery" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+                <div class="relative group overflow-hidden rounded-2xl">
+                    <img src="https://placehold.co/400x400/10b981/ffffff?text=Gaming" alt="Gallery" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                </div>
+                <div class="col-span-2 relative group overflow-hidden rounded-2xl">
+                    <img src="https://placehold.co/800x400/f59e0b/ffffff?text=Concert+Crowd" alt="Gallery" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                        <span class="text-white font-bold">Star Night 2024</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-brand-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-slate-900 mb-12 font-display">Student Stories</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-100">
+                    <div class="flex text-yellow-400 mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-slate-600 mb-6 italic">"The hackathon was intense! 24 hours of coding, caffeine, and mentors who actually helped. Best weekend of my college life."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-slate-200 rounded-full"></div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">Alex Chen</h4>
+                            <p class="text-xs text-slate-500">CS Undergrad</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Review 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-100">
+                    <div class="flex text-yellow-400 mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-slate-600 mb-6 italic">"I came for the workshops but stayed for the vibes. The cultural night was absolutely electric. Can't wait for 2026!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-slate-200 rounded-full"></div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">Priya Patel</h4>
+                            <p class="text-xs text-slate-500">IT Student</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Review 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-brand-100">
+                    <div class="flex text-yellow-400 mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="text-slate-600 mb-6 italic">"Winning the RoboWars competition opened so many doors for me. The networking opportunities here are insane."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-slate-200 rounded-full"></div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-sm">Marcus Johnson</h4>
+                            <p class="text-xs text-slate-500">Robotics Club Lead</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-24 bg-white border-t border-gray-100">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold font-display text-slate-900 text-center mb-12">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <div class="bg-gray-50 rounded-xl overflow-hidden">
+                    <details class="group p-6">
+                        <summary class="flex justify-between items-center font-semibold cursor-pointer list-none text-slate-800">
+                            Who can participate?
+                            <span class="transition group-open:rotate-180">
+                                <i class="fas fa-chevron-down text-brand-600"></i>
+                            </span>
+                        </summary>
+                        <p class="text-slate-600 mt-3 group-open:animate-fade-in-up text-sm leading-relaxed">
+                            The event is open to students from all colleges. You just need a valid college ID card to enter the campus. We also have categories for school students in specific events.
+                        </p>
+                    </details>
+                </div>
+                <div class="bg-gray-50 rounded-xl overflow-hidden">
+                    <details class="group p-6">
+                        <summary class="flex justify-between items-center font-semibold cursor-pointer list-none text-slate-800">
+                            Is there a registration fee?
+                            <span class="transition group-open:rotate-180">
+                                <i class="fas fa-chevron-down text-brand-600"></i>
+                            </span>
+                        </summary>
+                        <p class="text-slate-600 mt-3 group-open:animate-fade-in-up text-sm leading-relaxed">
+                            Entry to the campus and expo area is free. However, specific workshops and the hackathon have a nominal registration fee as mentioned in the passes section.
+                        </p>
+                    </details>
+                </div>
+                <div class="bg-gray-50 rounded-xl overflow-hidden">
+                    <details class="group p-6">
+                        <summary class="flex justify-between items-center font-semibold cursor-pointer list-none text-slate-800">
+                            Will accommodation be provided?
+                            <span class="transition group-open:rotate-180">
+                                <i class="fas fa-chevron-down text-brand-600"></i>
+                            </span>
+                        </summary>
+                        <p class="text-slate-600 mt-3 group-open:animate-fade-in-up text-sm leading-relaxed">
+                            Yes, accommodation is available for out-of-station participants on a first-come, first-serve basis in the college hostels. Charges apply for non-VIP pass holders.
+                        </p>
+                    </details>
+                </div>
+                <div class="bg-gray-50 rounded-xl overflow-hidden">
+                    <details class="group p-6">
+                        <summary class="flex justify-between items-center font-semibold cursor-pointer list-none text-slate-800">
+                            What should I bring?
+                            <span class="transition group-open:rotate-180">
+                                <i class="fas fa-chevron-down text-brand-600"></i>
+                            </span>
+                        </summary>
+                        <p class="text-slate-600 mt-3 group-open:animate-fade-in-up text-sm leading-relaxed">
+                            Bring your college ID (mandatory), laptop (for workshops/hackathon), chargers, and a water bottle. If you're staying overnight, bring basic toiletries.
+                        </p>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / Registration -->
+    <section id="register" class="py-24 bg-dark-900 relative overflow-hidden">
+        <!-- Background decorative elements -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 rounded-full bg-brand-600 opacity-20 blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-accent-600 opacity-20 blur-3xl"></div>
+        <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
+
+        <div class="max-w-4xl mx-auto px-4 relative z-10 text-center">
+            <span class="text-brand-400 font-bold tracking-wider uppercase text-sm mb-4 block">Limited Spots Available</span>
+            <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-6">Ready to Innovate?</h2>
+            <p class="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">Join the movement. Secure your spot at TechNova 2026 before tickets run out.</p>
+            
+            <div class="bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/10 max-w-lg mx-auto shadow-2xl">
+                <form onsubmit="event.preventDefault(); alert('Registration submitted!');" class="space-y-4">
+                    <div class="text-left">
+                        <label class="text-sm text-slate-400 ml-1 mb-1 block">Full Name</label>
+                        <input type="text" placeholder="John Doe" class="w-full px-5 py-4 bg-dark-950 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all">
+                    </div>
+                    <div class="text-left">
+                        <label class="text-sm text-slate-400 ml-1 mb-1 block">College Email</label>
+                        <input type="email" placeholder="student@college.edu" class="w-full px-5 py-4 bg-dark-950 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all">
+                    </div>
+                    <div class="text-left">
+                         <label class="text-sm text-slate-400 ml-1 mb-1 block">Select Pass</label>
+                         <select class="w-full px-5 py-4 bg-dark-950 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-brand-500 transition-all">
+                             <option>Basic Pass (Free)</option>
+                             <option>Standard Pass ($29)</option>
+                             <option>VIP Access ($59)</option>
+                         </select>
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-500 hover:to-accent-500 text-white font-bold py-4 rounded-lg shadow-lg transform active:scale-[0.98] transition-all">
+                        Complete Registration
+                    </button>
+                    <p class="text-xs text-slate-400 mt-4">By registering, you agree to our <a href="#" class="text-brand-400 underline">Code of Conduct</a>.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-950 text-slate-400 py-16 border-t border-dark-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-6 text-white group">
+                         <div class="w-8 h-8 bg-gradient-to-br from-brand-600 to-accent-600 rounded flex items-center justify-center font-bold">TN</div>
+                         <span class="text-xl font-bold font-display">TechNova<span class="text-accent-500">.</span></span>
+                    </div>
+                    <p class="mb-6 text-sm max-w-xs leading-relaxed">The premier annual technical festival of City Institute of Technology. Fostering innovation, creativity, and technical excellence since 2010.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6 font-display">Quick Links</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Sponsorship Brochure</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Code of Conduct</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Campus Map</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Volunteer</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6 font-display">Contact</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center gap-3"><i class="fas fa-envelope w-5 text-brand-500"></i> hello@technova.edu</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-phone w-5 text-brand-500"></i> +91 98765 43210</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-map-marker-alt w-5 text-brand-500"></i> Main Campus, Tech Block B</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-dark-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
+                <p>&copy; 2026 TechNova Committee. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors hover:scale-110 transform"><i class="fab fa-instagram text-lg"></i></a>
+                    <a href="#" class="hover:text-white transition-colors hover:scale-110 transform"><i class="fab fa-twitter text-lg"></i></a>
+                    <a href="#" class="hover:text-white transition-colors hover:scale-110 transform"><i class="fab fa-linkedin text-lg"></i></a>
+                    <a href="#" class="hover:text-white transition-colors hover:scale-110 transform"><i class="fab fa-youtube text-lg"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts for Interactivity -->
+    <script>
+        // Mobile Menu Toggle logic
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            if (isHidden) {
+                mobileMenu.classList.remove('hidden');
+            } else {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Sticky Navbar effect with scroll listening
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('glass-effect');
+                navbar.classList.add('bg-white/95', 'backdrop-blur-xl');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.add('glass-effect');
+                navbar.classList.remove('bg-white/95', 'backdrop-blur-xl');
+            }
+        });
+
+        // Simple Fade-in animation for scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in-up');
+                    entry.target.classList.remove('opacity-0');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section > div').forEach(section => {
+             // Add initial opacity 0 to sections to allow animation to trigger
+             section.classList.add('opacity-0'); 
+             observer.observe(section);
+        });
+
+        // Countdown Timer Logic
+        const targetDate = new Date('March 15, 2026 09:00:00').getTime();
+
+        const timerInterval = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                clearInterval(timerInterval);
+                document.getElementById('days').innerText = "00";
+                document.getElementById('hours').innerText = "00";
+                document.getElementById('minutes').innerText = "00";
+                document.getElementById('seconds').innerText = "00";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = days.toString().padStart(2, '0');
+            document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+        }, 1000);
+    </script>
+</body>
+</html>
